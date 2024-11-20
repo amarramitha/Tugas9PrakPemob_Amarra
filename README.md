@@ -47,17 +47,9 @@ Dengan menggunakan onAuthStateChanged, aplikasi akan mendeteksi perubahan status
 
 ![Create](create.png)
 
-Fungsi Utama: handleSubmit(todo)
+Ketika tombol **Tambah** pada **Floating Action Button (FAB)** ditekan, modal input (**InputModal**) akan terbuka. Di dalam modal ini, pengguna dapat memasukkan data *todo*. Data yang diisi secara langsung terhubung dengan properti bind `v-model`, sehingga nilai input diperbarui secara real-time. Ketika pengguna menekan tombol **Simpan**, event `@submit` akan dipicu, yang kemudian memanggil fungsi `handleSubmit(todo)` untuk memproses data.
 
-Validasi Input: Memeriksa apakah input title kosong. Jika ya, menampilkan toast peringatan menggunakan showToast.
-Tambah Todo Baru:
-Jika editingId kosong (artinya tidak sedang mengedit), maka fungsi firestoreService.addTodo(todo) dipanggil untuk menambahkan todo baru.
-Setelah berhasil, memuat ulang data todo dengan memanggil loadTodos().
-Pesan Keberhasilan: Menampilkan toast notifikasi bahwa todo berhasil ditambahkan.
-Komponen Input Modal:
-
-Tombol tambah pada FAB (ion-fab-button) membuka modal input (InputModal).
-Data dikirimkan melalui properti bind v-model dan event @submit.
+Pada fungsi `handleSubmit(todo)`, langkah pertama adalah validasi input. Jika *title* kosong, maka fungsi akan menampilkan pesan peringatan melalui `showToast`. Jika validasi lolos, fungsi akan memeriksa apakah `editingId` kosong. Jika kosong, artinya pengguna menambahkan data baru, dan fungsi `firestoreService.addTodo(todo)` dipanggil untuk menyimpan data *todo* baru ke database. Setelah data berhasil disimpan, fungsi `loadTodos()` akan dijalankan untuk memperbarui daftar *todo*, dan notifikasi keberhasilan akan muncul menggunakan `showToast`. Proses ini memastikan alur tambah atau simpan data *todo* berjalan lancar dari awal hingga akhir.
 
 8. **Proses Edit**
 
@@ -65,6 +57,14 @@ Data dikirimkan melalui properti bind v-model dan event @submit.
 
 ![Update](update.png)
 
+Ketika pengguna ingin mengedit data, mereka dapat memilih item *todo* yang ada, yang kemudian akan membuka modal input (**InputModal**) dengan data yang telah terisi. Data *todo* yang dipilih akan dihubungkan ke modal melalui `v-model`, memungkinkan pengguna melihat dan mengubah data langsung di dalam modal.
+
+Ketika pengguna selesai melakukan perubahan dan menekan tombol **Simpan**, event `@submit` akan memanggil fungsi `handleSubmit(todo)` untuk memproses data yang telah diperbarui. Dalam fungsi ini, sistem memeriksa apakah `editingId` memiliki nilai. Jika iya, artinya pengguna sedang mengedit data yang ada. Dalam kasus ini, fungsi `firestoreService.updateTodo(editingId, todo)` akan dipanggil untuk memperbarui data pada database berdasarkan ID *todo* yang sedang diedit.
+
+Setelah pembaruan berhasil, fungsi `loadTodos()` dipanggil untuk memperbarui daftar *todo* sehingga mencerminkan perubahan yang baru saja dilakukan. Terakhir, sistem menampilkan notifikasi keberhasilan dengan menggunakan `showToast`, memberi tahu pengguna bahwa data telah berhasil diperbarui. Alur ini memastikan proses pengeditan berjalan dengan mulus dan perubahan tersimpan dengan baik.
+
 9. **Proses Delete**
 
 ![Delete](delete.png)
+
+Proses penghapusan *todo* dimulai dengan memilih item yang ingin dihapus, kemudian pengguna menekan tombol **Delete** yang tersedia. Setelah itu, aplikasi akan meminta konfirmasi dari pengguna untuk memastikan penghapusan, misalnya melalui modal atau notifikasi. Jika dikonfirmasi, fungsi `deleteTodo(todoId)` dipanggil untuk menghapus item dari *database* (misalnya Firestore). Setelah penghapusan berhasil, aplikasi memuat ulang daftar *todo* dengan fungsi `loadTodos()` dan menampilkan notifikasi keberhasilan, sehingga tampilan UI diperbarui dan item yang dihapus tidak lagi muncul.
