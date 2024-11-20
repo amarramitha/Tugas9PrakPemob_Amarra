@@ -40,3 +40,31 @@ Fungsi logout memungkinkan pengguna untuk keluar dari akun mereka. Ini menggunak
 6. **Menjaga Status Autentikasi dengan onAuthStateChanged**
 
 Dengan menggunakan onAuthStateChanged, aplikasi akan mendeteksi perubahan status autentikasi pengguna. Setiap kali status autentikasi Firebase berubah (misalnya, pengguna login atau logout), nilai user akan diperbarui. Hal ini memungkinkan aplikasi untuk menampilkan atau menyembunyikan konten berdasarkan status login pengguna.
+
+7. **Proses Create**
+
+![View](viewapp.png)
+
+![Create](create.png)
+
+Fungsi Utama: handleSubmit(todo)
+
+Validasi Input: Memeriksa apakah input title kosong. Jika ya, menampilkan toast peringatan menggunakan showToast.
+Tambah Todo Baru:
+Jika editingId kosong (artinya tidak sedang mengedit), maka fungsi firestoreService.addTodo(todo) dipanggil untuk menambahkan todo baru.
+Setelah berhasil, memuat ulang data todo dengan memanggil loadTodos().
+Pesan Keberhasilan: Menampilkan toast notifikasi bahwa todo berhasil ditambahkan.
+Komponen Input Modal:
+
+Tombol tambah pada FAB (ion-fab-button) membuka modal input (InputModal).
+Data dikirimkan melalui properti bind v-model dan event @submit.
+
+8. **Proses Edit**
+
+![Edit](edit.png)
+
+![Update](update.png)
+
+9. **Proses Delete**
+
+![Delete](delete.png)
